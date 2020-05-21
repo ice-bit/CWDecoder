@@ -1,63 +1,64 @@
-// GPIO setup
-const short input_key = 3; // Straight key pin
-const short buzzer_pin = A5; // Buzzer output pin
+const uint8_t buzzer_pin = A5; // Buzzer pin
+const uint8_t key_pin = 3; // Straight key pin
 
-// Dit-dah vars
-short key_previous_state = LOW; // Previous state of the key
-const unsigned short dah_duration = 200; // How long a 'dah' should last(in ms).
-unsigned long key_long_press_ms; // How long the key has been pressed(long press)
-bool dah_state = false; // True if is a dah, false otherwise
-const short delay_in = 2; // Time between two samplings(in ms).
-unsigned long prev_key_ms; // Latest reading's time
-unsigned long key_press_ms; // How long the key was pressed(short press)
-unsigned long ticks; // Number of milliseconds passed since the program started 
+const unsigned long shortPress = 50;
+const unsigned long longPress = 200;
 
-void read_state() {
-  // Check wether enough time has passed before making another sampling
-  if((ticks - prev_key_ms) > delay_in) { 
-    // Retrive key state
-    int key_state = !digitalRead(input_key);
+typedef struct Button {
+  const uint8_t pin = key_pin;
+  const uint8_t debounce = 10;
+  uint16_t counter = 0; // How long button has been pressed
+  // {prev,current}State variables are used to determine state switch
+  uint8_t prevState = LOW; 
+  uint8_t currentState;
+} Button_t;
 
-  // Check if key is pressed, previous state was low and no other
-  // measurement was already running
-    if(key_state == HIGH && key_previous_state == LOW && !dah_state) {
-      key_long_press_ms = ticks;
-      key_previous_state = HIGH; // Update previous state for next iteration
-    }
-
-    // Check how long key has been pressed 
-    key_press_ms = ticks - key_long_press_ms;
-
-  // Check if key is pressed, dah state wasn't enabled and check if 
-  // press duration is greather or equal to the default dah duration
-    if(key_state == HIGH && !dah_state && key_press_ms >= dah_duration) {
-      dah_state = true; 
-      Serial.print("-");
-      tone(buzzer_pin, 55000, 300);
-      return;
-    } 
-    if(key_state == LOW && key_previous_state == HIGH && key_press_ms < dah_duration) { // If key is released(and it was pressed) return at the original state
-      key_previous_state = LOW;
-      dah_state = false;
-      Serial.print(".");
-      tone(buzzer_pin, 55000, 100);
-    }
-    // Update time for next iteration
-    prev_key_ms = ticks;
-  }
-}
+// create a new button instance
+Button_t key;
 
 void setup() {
-  Serial.begin(9600); 
+  pinMode(buzzer_pin, OUTPUT);
+  pinMode(key.pin, INPUT);
 
-  pinMode(input_key, INPUT); // Set key as an input
-  pinMode(buzzer_pin, OUTPUT); // Set buzzer as an output
-  pinMode(LED_BUILTIN, OUTPUT);
-
-  Serial.println("Ready");
+  Serial.begin(9600);
 }
 
 void loop() {
-  ticks = millis(); // Retrieve current time
-  read_state();
+  key.currentState = !digitalRead(key.pin); // Read key current state
+
+  // Check if it's changed from the last state
+  if(key.currentState != key.prevState) {
+    // Dirty hack for mechanical deboucing(a Schmitt trigger would be a better solution)
+    delay(key.debounce);
+    // In case of a bounce, update currentStatus
+    key.currentState = !digitalRead(key.pin);
+    if(key.currentState == HIGH) {
+      // Start tone generator
+      tone(buzzer_pin, 55000);
+      // Record when button was pressed
+      key.counter = millis();
+    } else if(key.currentState == LOW) {
+      // Button is no longer pressed, get how long it was 
+      // in previous state(ie how long it was pressed)
+      unsigned long currentMillis = millis();
+      // If active key time is at least equal to short press time and lower than long press time 
+      // then handle a short press event
+      if(((currentMillis - key.counter) >= shortPress) && (currentMillis - key.counter) < longPress)
+        shortPressEvent(); // Handle a short press
+      else if((currentMillis - key.counter) >= longPress) // Otherwise
+        longPressEvent(); // Handle a long press
+      // Disable tone generator
+      noTone(buzzer_pin);
+    }
+    // Then update previous state for the next iteration
+    key.prevState = key.currentState;
+  }
+}
+
+void shortPressEvent() {
+  Serial.print(".");
+}
+
+void longPressEvent() {
+  Serial.print("-");
 }
