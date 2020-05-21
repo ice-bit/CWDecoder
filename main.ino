@@ -1,11 +1,11 @@
-const uint8_t buzzer_pin = A5; // Buzzer pin
-const uint8_t key_pin = 3; // Straight key pin
+#define BUZZER_PIN  A5 // Buzzer pin
+#define KEY_PIN  3 // Straight key pin
 
 const unsigned long shortPress = 50;
 const unsigned long longPress = 200;
 
 typedef struct Button {
-  const uint8_t pin = key_pin;
+  const uint8_t pin = KEY_PIN;
   const uint8_t debounce = 10;
   uint16_t counter = 0; // How long button has been pressed
   // {prev,current}State variables are used to determine state switch
@@ -17,8 +17,9 @@ typedef struct Button {
 Button_t key;
 
 void setup() {
-  pinMode(buzzer_pin, OUTPUT);
+  pinMode(BUZZER_PIN, OUTPUT);
   pinMode(key.pin, INPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
 
   Serial.begin(9600);
 }
@@ -33,8 +34,9 @@ void loop() {
     // In case of a bounce, update currentStatus
     key.currentState = !digitalRead(key.pin);
     if(key.currentState == HIGH) {
-      // Start tone generator
-      tone(buzzer_pin, 55000);
+      // Start tone generator and turn on the LED
+      tone(BUZZER_PIN, 55000);
+      digitalWrite(LED_BUILTIN, HIGH);
       // Record when button was pressed
       key.counter = millis();
     } else if(key.currentState == LOW) {
@@ -47,8 +49,9 @@ void loop() {
         shortPressEvent(); // Handle a short press
       else if((currentMillis - key.counter) >= longPress) // Otherwise
         longPressEvent(); // Handle a long press
-      // Disable tone generator
-      noTone(buzzer_pin);
+      // Disable tone generator and turn dff the LED
+      noTone(BUZZER_PIN);
+      digitalWrite(LED_BUILTIN, LOW);
     }
     // Then update previous state for the next iteration
     key.prevState = key.currentState;
