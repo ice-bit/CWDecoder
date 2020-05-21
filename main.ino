@@ -1,13 +1,13 @@
 #define BUZZER_PIN  A5 // Buzzer pin
 #define KEY_PIN  3 // Straight key pin
 
-const unsigned long shortPress = 50;
-const unsigned long longPress = 200;
+const uint8_t shortPress = 50;
+const uint8_t longPress = 200;
 
 typedef struct Button {
   const uint8_t pin = KEY_PIN;
   const uint8_t debounce = 10;
-  uint16_t counter = 0; // How long button has been pressed
+  uint64_t counter = 0; // How long button has been pressed
   // {prev,current}State variables are used to determine state switch
   uint8_t prevState = LOW; 
   uint8_t currentState;
@@ -21,6 +21,7 @@ void setup() {
   pinMode(key.pin, INPUT);
   pinMode(LED_BUILTIN, OUTPUT);
 
+  tone(BUZZER_PIN, 55000, 200);
   Serial.begin(9600);
 }
 
@@ -42,7 +43,7 @@ void loop() {
     } else if(key.currentState == LOW) {
       // Button is no longer pressed, get how long it was 
       // in previous state(ie how long it was pressed)
-      unsigned long currentMillis = millis();
+      uint64_t currentMillis = millis();
       // If active key time is at least equal to short press time and lower than long press time 
       // then handle a short press event
       if(((currentMillis - key.counter) >= shortPress) && (currentMillis - key.counter) < longPress)
