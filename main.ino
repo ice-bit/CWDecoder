@@ -22,13 +22,14 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
 
   tone(BUZZER_PIN, 55000, 200);
-  Serial.begin(9600);
+  Serial.begin(115200);
+  Serial.println("Powered on");
 }
 
 void loop() {
   key.currentState = !digitalRead(key.pin); // Read key current state
 
-  // Check if it's changed from the last state
+  // Check if state is changed
   if(key.currentState != key.prevState) {
     // Dirty hack for mechanical deboucing(a Schmitt trigger would be a better solution)
     delay(key.debounce);
@@ -60,9 +61,9 @@ void loop() {
 }
 
 void shortPressEvent() {
-  Serial.print(".");
+  Serial.println(".");
 }
 
 void longPressEvent() {
-  Serial.print("-");
+  Serial.println("-");
 }
