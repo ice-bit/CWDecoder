@@ -3,6 +3,9 @@
 
 const uint8_t shortPress = 50;
 const uint8_t longPress = 200;
+const int wpm = 700;
+uint64_t timeLast = 0;
+String vec;
 
 typedef struct Button {
   const uint8_t pin = KEY_PIN;
@@ -27,7 +30,8 @@ void setup() {
 }
 
 void loop() {
-  key.currentState = !digitalRead(key.pin); // Read key current state
+  // Read key current state
+  key.currentState = !digitalRead(key.pin);
 
   // Check if state is changed
   if(key.currentState != key.prevState) {
@@ -57,13 +61,24 @@ void loop() {
     }
     // Then update previous state for the next iteration
     key.prevState = key.currentState;
+    Serial.println(vec);
   }
 }
 
 void shortPressEvent() {
-  Serial.println(".");
+  if(((millis() - timeLast) > wpm) && (vec != NULL)) {
+    vec += ' ';
+    Serial.println("spazio1");
+  }
+
+  vec += '.';
+  timeLast = millis();
 }
 
 void longPressEvent() {
-  Serial.println("-");
+  if(((millis() - timeLast) > wpm) && (vec != NULL))
+    vec += ' ';
+
+  vec += '-';
+  timeLast = millis();
 }
