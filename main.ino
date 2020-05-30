@@ -36,9 +36,7 @@ void setup() {
   lcd.begin(16, 2);
   lcd.setCursor(0, 0);
 
-  tone(BUZZER_PIN, 55000, 200);
-  Serial.begin(115200);
-  Serial.println("Powered on");
+  tone(BUZZER_PIN, 55000, 200); // beep for 200 ms at start
 }
 
 void loop() {
