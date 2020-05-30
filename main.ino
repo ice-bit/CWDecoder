@@ -1,15 +1,9 @@
 #include <string.h>
+#include <LiquidCrystal.h>
 #define BUZZER_PIN A5 // Buzzer pin
 #define KEY_PIN 3 // Straight key pin
 #define DELIM "*" // Delimiter to split a word
 
-const uint8_t shortPress = 50; // ms for a short press(dit)
-const uint8_t longPress = 200; // ms for a long press(dah)
-const uint16_t wpm = 700; // words-per-minutes
-uint64_t timeLast = 0; // ms since last word
-bool alreadyTranslated = true; // To prevent adding sampling
-int16_t pos = -1; // default value means empty buffer
-char buf[10]; // A buffer to store data for conversion
 
 typedef struct Button {
   const uint8_t pin = KEY_PIN;
@@ -20,8 +14,15 @@ typedef struct Button {
   uint8_t currentState;
 } Button_t;
 
-// create a new button instance
-Button_t key;
+LiquidCrystal lcd(5, 6, 10, 9, 8, 7);
+Button_t key; // create a new button instance
+const uint8_t shortPress = 50; // ms for a short press(dit)
+const uint8_t longPress = 200; // ms for a long press(dah)
+const uint16_t wpm = 500; // words-per-minutes(500 ~ 20 wpm, counter isn't accurate FIXME:)
+uint64_t timeLast = 0; // ms since last word
+bool alreadyTranslated = true; // To prevent adding sampling
+int16_t pos = -1; // default value means empty buffer
+char buf[10]; // A buffer to store data for conversion
 
 // Internal function
 void buttonEvent(uint8_t type_of_event);
@@ -32,6 +33,8 @@ void setup() {
   pinMode(BUZZER_PIN, OUTPUT);
   pinMode(key.pin, INPUT);
   pinMode(LED_BUILTIN, OUTPUT);
+  lcd.begin(16, 2);
+  lcd.setCursor(0, 0);
 
   tone(BUZZER_PIN, 55000, 200);
   Serial.begin(115200);
@@ -111,7 +114,7 @@ void tokenize() {
   char *token = strtok(buf, DELIM); // Split word
   // Translated the word
   char translatedWord = converter(token);
-  Serial.println(translatedWord);
+  lcd.print(translatedWord);
 
   // Empty buffer
   memset(buf, 0, sizeof(buf));
