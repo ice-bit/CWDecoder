@@ -1,11 +1,12 @@
 #include <string.h>
-#define BUZZER_PIN  A5 // Buzzer pin
+#define BUZZER_PIN A5 // Buzzer pin
 #define KEY_PIN 3 // Straight key pin
 
 const uint8_t shortPress = 50; // ms for a short press(dit)
 const uint8_t longPress = 200; // ms for a long press(dah)
 const uint16_t wpm = 700; // words-per-minutes
 uint64_t timeLast = 0; // ms since last word
+bool alreadyFormatted = true; // To prevent adding multiple times token
 int16_t pos = -1; // default value means empty buffer
 char buf[256]; // A buffer to store data for conversion
 
@@ -60,6 +61,9 @@ void loop() {
         buttonEvent(0); // Handle a short press
       else if((currentTime - key.counter) >= longPress) // Otherwise
         buttonEvent(1); // Handle a long press
+
+      // Update time since last word
+      timeLast = millis();
       // Disable tone generator and turn dff the LED
       noTone(BUZZER_PIN);
       digitalWrite(LED_BUILTIN, LOW);
@@ -67,6 +71,18 @@ void loop() {
     // Then update previous state for the next iteration
     key.prevState = key.currentState;
     Serial.println(buf);
+  }
+
+  /* if endTime-starTime (since last keystroke)
+  is greater than word-per-minutes time and 
+  buffer is empty, add a marker between words.
+  Buffer must not be empty to prevent adding 
+  marker char at the first input. 
+  Also, in order to prevent multiple adding of the 
+  'space marker' we need a boolean flag */
+  if(((millis() - timeLast) > wpm) && (pos != -1) && alreadyFormatted == false) {
+    buf[++pos] = '*'; // Add the 'space marker' to the buffer
+    alreadyFormatted = true; // Set flag to true(i.e. do not add another marker)
   }
 
   // Prevent buffer overflow
@@ -78,21 +94,10 @@ void loop() {
 
 void buttonEvent(uint8_t type_of_event) {
   if(type_of_event == 0) { // short press
-    /* if endTime-starTime (since last keystroke)
-      is greater than word-per-minutes time and 
-      buffer is empty, add a marker between words.
-      Buffer must not be empty to prevent adding 
-      marker char at the first input. */
-    if(((millis() - timeLast) > wpm) && (pos != -1))
-      buf[++pos] = ' ';
-
-    buf[++pos] = '.';
-    timeLast = millis(); // Update time since last word
+    buf[++pos] = '.'; // Add a 'dit' to the buffer
+    alreadyFormatted = false; // Set flag to false(i.e. add a marker at next iteration)
   } else if(type_of_event == 1) { // long press
-    if(((millis() - timeLast) > wpm) && (pos != -1))
-      buf[++pos] = ' ';
-
-    buf[++pos] = '-';
-    timeLast = millis(); // Update time since last word
+    buf[++pos] = '-'; // Add a 'dah' to the buffer
+    alreadyFormatted = false; // Set flag to false(i.e. add a marker at next iteration)
   }
 }
