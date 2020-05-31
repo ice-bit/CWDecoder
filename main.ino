@@ -2,7 +2,10 @@
 #include <LiquidCrystal.h>
 #define BUZZER_PIN A5 // Buzzer pin
 #define KEY_PIN 3 // Straight key pin
+#define RESET_PIN 11 // Reset push button
 #define DELIM "*" // Delimiter to split a word
+#define LCD_NUM_ROWS 2
+#define LCD_NUM_COLS 16
 
 
 typedef struct Button {
@@ -14,7 +17,7 @@ typedef struct Button {
   uint8_t currentState;
 } Button_t;
 
-LiquidCrystal lcd(5, 6, 10, 9, 8, 7);
+LiquidCrystal lcd(5, 6, 10, 9, 8, 7); // Setup display
 Button_t key; // create a new button instance
 const uint8_t shortPress = 50; // ms for a short press(dit)
 const uint8_t longPress = 200; // ms for a long press(dah)
@@ -23,16 +26,19 @@ uint64_t timeLast = 0; // ms since last word
 bool alreadyTranslated = true; // To prevent adding sampling
 int16_t pos = -1; // default value means empty buffer
 char buf[10]; // A buffer to store data for conversion
+uint8_t currentColNum; // Current column number
+uint8_t currentRowNum; // Current row number
 
 // Internal function
 void buttonEvent(uint8_t type_of_event);
-void tokenize();
+void translate();
 char converter(const char *ch);
 
 void setup() {
   pinMode(BUZZER_PIN, OUTPUT);
   pinMode(key.pin, INPUT);
   pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(RESET_PIN, INPUT);
   lcd.begin(16, 2);
   lcd.setCursor(0, 0);
 
@@ -40,6 +46,13 @@ void setup() {
 }
 
 void loop() {
+
+  // If reset button is pressed, reset lcd
+  if(!digitalRead(RESET_PIN)) {
+    lcd.clear();
+    currentColNum = currentRowNum = 0;
+  }
+
   // Read key current state
   key.currentState = !digitalRead(key.pin);
 
@@ -84,7 +97,7 @@ void loop() {
   Also, in order to prevent multiple sampling 
   we need a boolean flag */
   if(((millis() - timeLast) > wpm) && (pos != -1) && !alreadyTranslated) {
-    tokenize();
+    translate();
     alreadyTranslated = true; // Set flag to true(i.e. do not add another marker)
   }
 
@@ -108,12 +121,24 @@ void buttonEvent(uint8_t type_of_event) {
   }
 }
 
-void tokenize() {
+void translate() {
   char *token = strtok(buf, DELIM); // Split word
   // Translated the word
   char translatedWord = converter(token);
-  lcd.print(translatedWord);
 
+  if(currentColNum == 16) { // if we reached the end of current line
+    if(currentRowNum == 1) { // and If we already are on second line
+      lcd.clear(); // Clear the screen and set cursor to (0,0)
+      currentColNum = currentRowNum = 0; // Reset counters
+    } else { // otherwise just go to the next row
+      currentColNum = 0; // Reset column pos
+      lcd.setCursor(currentColNum, ++currentRowNum); // Set cursor at next line
+    }
+  }
+  // print character to the screen
+  lcd.print(translatedWord);
+  // Go to the next column
+  currentColNum++;
   // Empty buffer
   memset(buf, 0, sizeof(buf));
   pos = -1;
