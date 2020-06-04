@@ -1,0 +1,336 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title "Morse code decoder"
+Date "2020-06-05"
+Rev "v1.0"
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 "by Marco Cetica"
+Comment4 "Morse code decoder using Arduino"
+$EndDescr
+Wire Wire Line
+	6950 4100 6950 4150
+Wire Wire Line
+	6750 4100 6950 4100
+Wire Wire Line
+	6750 4050 6750 4100
+$Comp
+L power:GND #PWR?
+U 1 1 5EE31265
+P 6950 4150
+F 0 "#PWR?" H 6950 3900 50  0001 C CNN
+F 1 "GND" H 6955 3977 50  0000 C CNN
+F 2 "" H 6950 4150 50  0001 C CNN
+F 3 "" H 6950 4150 50  0001 C CNN
+	1    6950 4150
+	-1   0    0    -1  
+$EndComp
+$Comp
+L MCU_Module:Arduino_Nano_v3.x A?
+U 1 1 5ED974A3
+P 6650 3050
+F 0 "A?" H 6650 1961 50  0000 C CNN
+F 1 "Arduino_Nano_v3.x" H 6450 1900 50  0000 C CNN
+F 2 "Module:Arduino_Nano" H 6650 3050 50  0001 C CIN
+F 3 "http://www.mouser.com/pdfdocs/Gravitech_Arduino_Nano3_0.pdf" H 6650 3050 50  0001 C CNN
+	1    6650 3050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6850 2050 6850 1850
+$Comp
+L power:+5V #PWR?
+U 1 1 5EE2FDF2
+P 6850 1850
+F 0 "#PWR?" H 6850 1700 50  0001 C CNN
+F 1 "+5V" H 6865 2023 50  0000 C CNN
+F 2 "" H 6850 1850 50  0001 C CNN
+F 3 "" H 6850 1850 50  0001 C CNN
+	1    6850 1850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5800 2200 5800 2100
+$Comp
+L power:+5V #PWR?
+U 1 1 5EE2C21F
+P 5800 2100
+F 0 "#PWR?" H 5800 1950 50  0001 C CNN
+F 1 "+5V" H 5815 2273 50  0000 C CNN
+F 2 "" H 5800 2100 50  0001 C CNN
+F 3 "" H 5800 2100 50  0001 C CNN
+	1    5800 2100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5800 2500 5800 2750
+Connection ~ 5800 2850
+Wire Wire Line
+	5950 2750 6150 2750
+Connection ~ 5950 2750
+Wire Wire Line
+	5950 2500 5950 2750
+Wire Wire Line
+	5800 2750 5950 2750
+Wire Wire Line
+	5800 2850 6150 2850
+Wire Wire Line
+	5800 3100 5800 2850
+Wire Wire Line
+	5750 3100 5800 3100
+$Comp
+L Device:R R?
+U 1 1 5EDA79C7
+P 5800 2350
+F 0 "R?" H 5731 2304 50  0000 R CNN
+F 1 "470" H 5731 2395 50  0000 R CNN
+F 2 "" V 5730 2350 50  0001 C CNN
+F 3 "~" H 5800 2350 50  0001 C CNN
+	1    5800 2350
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	5950 2200 5950 2100
+$Comp
+L Device:R R?
+U 1 1 5EE023BD
+P 5950 2350
+F 0 "R?" H 6020 2396 50  0000 L CNN
+F 1 "470" H 6020 2305 50  0000 L CNN
+F 2 "" V 5880 2350 50  0001 C CNN
+F 3 "~" H 5950 2350 50  0001 C CNN
+	1    5950 2350
+	1    0    0    -1  
+$EndComp
+Text GLabel 5750 3100 0    50   Input ~ 0
+KEY_POS
+Wire Wire Line
+	5350 2750 5400 2750
+Wire Wire Line
+	5350 2800 5350 2750
+$Comp
+L power:GND #PWR?
+U 1 1 5EDE763B
+P 5350 2800
+F 0 "#PWR?" H 5350 2550 50  0001 C CNN
+F 1 "GND" H 5355 2627 50  0000 C CNN
+F 2 "" H 5350 2800 50  0001 C CNN
+F 3 "" H 5350 2800 50  0001 C CNN
+	1    5350 2800
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5EDE60D0
+P 5950 2100
+F 0 "#PWR?" H 5950 1950 50  0001 C CNN
+F 1 "+5V" H 5965 2273 50  0000 C CNN
+F 2 "" H 5950 2100 50  0001 C CNN
+F 3 "" H 5950 2100 50  0001 C CNN
+	1    5950 2100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW?
+U 1 1 5EDDEC17
+P 5600 2750
+F 0 "SW?" H 5600 2700 50  0000 C CNN
+F 1 "SW_Push" H 5600 2600 50  0000 C CNN
+F 2 "" H 5600 2950 50  0001 C CNN
+F 3 "~" H 5600 2950 50  0001 C CNN
+	1    5600 2750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4850 2650 6150 2650
+Wire Wire Line
+	4950 3300 4950 3200
+Wire Wire Line
+	4950 2850 4950 2900
+Wire Wire Line
+	4850 2850 4950 2850
+$Comp
+L power:GND #PWR?
+U 1 1 5EDB1E9C
+P 4950 3300
+F 0 "#PWR?" H 4950 3050 50  0001 C CNN
+F 1 "GND" H 4955 3127 50  0000 C CNN
+F 2 "" H 4950 3300 50  0001 C CNN
+F 3 "" H 4950 3300 50  0001 C CNN
+	1    4950 3300
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5EDA738A
+P 4950 3050
+F 0 "R?" H 5020 3096 50  0000 L CNN
+F 1 "470" H 5020 3005 50  0000 L CNN
+F 2 "" V 4880 3050 50  0001 C CNN
+F 3 "~" H 4950 3050 50  0001 C CNN
+	1    4950 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Buzzer BZ?
+U 1 1 5ED9989F
+P 4750 2750
+F 0 "BZ?" H 4902 2779 50  0000 L CNN
+F 1 "Buzzer" H 4902 2688 50  0000 L CNN
+F 2 "" V 4725 2850 50  0001 C CNN
+F 3 "~" V 4725 2850 50  0001 C CNN
+	1    4750 2750
+	-1   0    0    -1  
+$EndComp
+Text GLabel 3800 5500 0    50   Input ~ 0
+KEY_NEG
+$Comp
+L power:GND #PWR?
+U 1 1 5EE65809
+P 3950 5550
+F 0 "#PWR?" H 3950 5300 50  0001 C CNN
+F 1 "GND" H 3955 5377 50  0000 C CNN
+F 2 "" H 3950 5550 50  0001 C CNN
+F 3 "" H 3950 5550 50  0001 C CNN
+	1    3950 5550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3800 5500 3950 5500
+Wire Wire Line
+	3950 5500 3950 5550
+Connection ~ 5800 2750
+Wire Wire Line
+	5800 2750 5800 2850
+$Comp
+L Device:R R?
+U 1 1 5EDA6D10
+P 3650 3950
+F 0 "R?" V 3443 3950 50  0000 C CNN
+F 1 "3.3K" V 3534 3950 50  0000 C CNN
+F 2 "" V 3580 3950 50  0001 C CNN
+F 3 "~" H 3650 3950 50  0001 C CNN
+	1    3650 3950
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5EDA7700
+P 5350 5100
+F 0 "R?" V 5150 5100 50  0000 C CNN
+F 1 "470" V 5250 5100 50  0000 C CNN
+F 2 "" V 5280 5100 50  0001 C CNN
+F 3 "~" H 5350 5100 50  0001 C CNN
+	1    5350 5100
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5EDB1113
+P 5400 4600
+F 0 "#PWR?" H 5400 4350 50  0001 C CNN
+F 1 "GND" H 5405 4427 50  0000 C CNN
+F 2 "" H 5400 4600 50  0001 C CNN
+F 3 "" H 5400 4600 50  0001 C CNN
+	1    5400 4600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Display_Character:LCD-016N002L U?
+U 1 1 5ED98DC7
+P 4500 4550
+F 0 "U?" V 4850 5350 50  0000 R CNN
+F 1 "LCD-016N002L" V 4850 4100 50  0000 R CNN
+F 2 "Display:LCD-016N002L" H 4520 3630 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/37299/37299.pdf" H 5000 4250 50  0001 C CNN
+	1    4500 4550
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	5300 4550 5400 4550
+Wire Wire Line
+	5400 4550 5400 4600
+$Comp
+L power:+5V #PWR?
+U 1 1 5EE6A5F3
+P 3600 4450
+F 0 "#PWR?" H 3600 4300 50  0001 C CNN
+F 1 "+5V" H 3615 4623 50  0000 C CNN
+F 2 "" H 3600 4450 50  0001 C CNN
+F 3 "" H 3600 4450 50  0001 C CNN
+	1    3600 4450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3700 4550 3600 4550
+Wire Wire Line
+	3600 4550 3600 4450
+$Comp
+L power:GND #PWR?
+U 1 1 5EE7CD7F
+P 3450 4050
+F 0 "#PWR?" H 3450 3800 50  0001 C CNN
+F 1 "GND" H 3455 3877 50  0000 C CNN
+F 2 "" H 3450 4050 50  0001 C CNN
+F 3 "" H 3450 4050 50  0001 C CNN
+	1    3450 4050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3800 3950 3900 3950
+Wire Wire Line
+	3900 3950 3900 4150
+Wire Wire Line
+	3450 4050 3450 3950
+Wire Wire Line
+	3450 3950 3500 3950
+Wire Wire Line
+	5100 4950 5100 5100
+Wire Wire Line
+	5100 5100 5200 5100
+$Comp
+L power:+5V #PWR?
+U 1 1 5EE91567
+P 5550 5000
+F 0 "#PWR?" H 5550 4850 50  0001 C CNN
+F 1 "+5V" H 5565 5173 50  0000 C CNN
+F 2 "" H 5550 5000 50  0001 C CNN
+F 3 "" H 5550 5000 50  0001 C CNN
+	1    5550 5000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5500 5100 5550 5100
+Wire Wire Line
+	5550 5100 5550 5000
+$Comp
+L power:GND #PWR?
+U 1 1 5EE976E1
+P 4000 5050
+F 0 "#PWR?" H 4000 4800 50  0001 C CNN
+F 1 "GND" H 4005 4877 50  0000 C CNN
+F 2 "" H 4000 5050 50  0001 C CNN
+F 3 "" H 4000 5050 50  0001 C CNN
+	1    4000 5050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4000 5050 4000 4950
+Wire Wire Line
+	4100 4950 4100 5300
+Wire Wire Line
+	4100 5300 3250 5300
+Wire Wire Line
+	3250 5300 3250 3650
+Wire Wire Line
+	3250 3650 5900 3650
+Wire Wire Line
+	5900 3650 5900 2950
+Wire Wire Line
+	5900 2950 6150 2950
+$EndSCHEMATC
