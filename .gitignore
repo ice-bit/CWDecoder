@@ -25,6 +25,9 @@
 *.la
 *.a
 *.lib
+*.elf
+*.hex
+*.with_bootloader
 
 # Executables
 *.exe

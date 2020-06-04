@@ -35,7 +35,7 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
   lcd.begin(16, 2);
   lcd.setCursor(0, 0);
-
+  Serial.begin(9600);
   tone(BUZZER_PIN, 55000, 200); // beep for 200 ms at start
 }
 
