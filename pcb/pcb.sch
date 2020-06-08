@@ -181,23 +181,23 @@ F 3 "~" V 4725 2850 50  0001 C CNN
 	1    4750 2750
 	-1   0    0    -1  
 $EndComp
-Text GLabel 6650 4700 0    50   Input ~ 0
+Text GLabel 6700 5300 0    50   Input ~ 0
 KEY_NEG
 $Comp
 L power:GND #PWR011
 U 1 1 5EE65809
-P 6800 4750
-F 0 "#PWR011" H 6800 4500 50  0001 C CNN
-F 1 "GND" H 6805 4577 50  0000 C CNN
-F 2 "" H 6800 4750 50  0001 C CNN
-F 3 "" H 6800 4750 50  0001 C CNN
-	1    6800 4750
+P 6850 5350
+F 0 "#PWR011" H 6850 5100 50  0001 C CNN
+F 1 "GND" H 6855 5177 50  0000 C CNN
+F 2 "" H 6850 5350 50  0001 C CNN
+F 3 "" H 6850 5350 50  0001 C CNN
+	1    6850 5350
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6650 4700 6800 4700
+	6700 5300 6850 5300
 Wire Wire Line
-	6800 4700 6800 4750
+	6850 5300 6850 5350
 $Comp
 L Device:R R1
 U 1 1 5EDA6D10
@@ -391,4 +391,25 @@ Wire Wire Line
 	4050 3900 4300 3900
 Wire Wire Line
 	4300 3900 4300 4150
+$Comp
+L AudioJackCustom:AudioJack2_Dual_Ground_Switch J1
+U 1 1 5EDF1D17
+P 6400 4750
+F 0 "J1" H 6350 5200 50  0000 C CNN
+F 1 "Audio Jack" H 6400 5100 50  0000 C CNN
+F 2 "Connector_Audio:Jack_3.5mm_Ledino_KB3SPRS_Horizontal" H 6350 4950 50  0001 C CNN
+F 3 "~" H 6350 4950 50  0001 C CNN
+	1    6400 4750
+	1    0    0    -1  
+$EndComp
+Text GLabel 6500 5100 2    50   Input ~ 0
+KEY_NEG
+Wire Wire Line
+	6400 5050 6400 5100
+Wire Wire Line
+	6400 5100 6500 5100
+Text GLabel 6700 4750 2    50   Input ~ 0
+KEY_POS
+Wire Wire Line
+	6600 4750 6700 4750
 $EndSCHEMATC
