@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/marco/Projects/CWDecoder/pcb/pcb.sch)
-    (date "Mon 08 Jun 2020 11:28:35 PM CEST")
+    (date "Wed 10 Jun 2020 12:00:10 AM CEST")
     (tool "Eeschema 5.1.6")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -73,7 +73,7 @@
       (tstamp 5EDA7700))
     (comp (ref U1)
       (value LCD-016N002L)
-      (footprint Display:LCD-016N002L)
+      (footprint Display:WC1602A)
       (datasheet http://www.vishay.com/docs/37299/37299.pdf)
       (libsource (lib Display_Character) (part LCD-016N002L) (description "LCD 12x2, 8 bit parallel bus, 3V or 5V VDD"))
       (sheetpath (names /) (tstamps /))
