@@ -24,7 +24,6 @@
 *.lai
 *.la
 *.a
-*.lib
 *.elf
 *.hex
 *.with_bootloader
