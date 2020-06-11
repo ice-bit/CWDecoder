@@ -1,8 +1,8 @@
 #include <string.h>
 #include <LiquidCrystal.h>
-#define BUZZER_PIN A5 // Buzzer pin
-#define KEY_PIN 3 // Straight key pin
-#define RESET_PIN 11 // Reset push button
+#define BUZZER_PIN 2 // Buzzer pin
+#define KEY_PIN 4 // Straight key pin
+#define RESET_PIN 3 // Reset push button
 #define DELIM "*" // Delimiter to split a word
 #define LCD_NUM_ROWS 2
 #define LCD_NUM_COLS 16
@@ -17,7 +17,8 @@ typedef struct Button {
   uint8_t currentState;
 } Button_t;
 
-LiquidCrystal lcd(5, 6, 10, 9, 8, 7); // Setup display
+const uint8_t rs = 5, en = 6, d4 = 7, d5 = 8, d6 = 9, d7 = 10;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7); // Setup display
 Button_t key; // create a new button instance
 const uint8_t shortPress = 50; // ms for a short press(dit)
 const uint8_t longPress = 200; // ms for a long press(dah)

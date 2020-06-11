@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/marco/Projects/CWDecoder/pcb/pcb.sch)
-    (date "Wed 10 Jun 2020 12:00:10 AM CEST")
+    (date "Thu 11 Jun 2020 08:10:27 PM CEST")
     (tool "Eeschema 5.1.6")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -52,7 +52,7 @@
       (tstamp 5EDA738A))
     (comp (ref BZ1)
       (value Buzzer)
-      (footprint Buzzer_Beeper:Buzzer_TDK_PS1240P02BT_D12.2mm_H6.5mm)
+      (footprint Buzzer_Beeper:MagneticBuzzer_Kingstate_KCG0601)
       (datasheet ~)
       (libsource (lib Device) (part Buzzer) (description "Buzzer, polarized"))
       (sheetpath (names /) (tstamps /))
