@@ -175,7 +175,7 @@
   )
 
   (module Symbol:OSHW-Logo2_9.8x8mm_SilkScreen (layer F.Cu) (tedit 0) (tstamp 5EE5C4BE)
-    (at 179.324 124.714)
+    (at 181.102 124.968)
     (descr "Open Source Hardware Symbol")
     (tags "Logo Symbol OSHW")
     (attr virtual)
@@ -467,7 +467,7 @@
   )
 
   (module pcb:qrcode (layer F.Cu) (tedit 0) (tstamp 5EE5B0EA)
-    (at 170.942 124.714)
+    (at 172.466 125.222)
     (fp_text reference G*** (at 0 0) (layer F.SilkS) hide
       (effects (font (size 1.524 1.524) (thickness 0.3)))
     )
@@ -1331,7 +1331,7 @@
   (gr_line (start 189.23 71.12) (end 189.23 74.93) (layer Edge.Cuts) (width 0.05) (tstamp 5EE15E7F))
   (gr_line (start 77.47 71.12) (end 189.23 71.12) (layer Edge.Cuts) (width 0.05))
   (gr_line (start 77.47 74.93) (end 77.47 71.12) (layer Edge.Cuts) (width 0.05))
-  (gr_text "© Marco Cetica 2020\nMorse Code Decoder" (at 165.1 130.81) (layer F.SilkS)
+  (gr_text "© Marco Cetica 2020\nMorse Code Decoder" (at 167.64 131.318) (layer F.SilkS)
     (effects (font (size 1.2 1.2) (thickness 0.15)) (justify left))
   )
   (gr_line (start 189.23 134.62) (end 189.23 133.35) (layer Edge.Cuts) (width 0.05) (tstamp 5EE0289B))
