@@ -1,4 +1,3 @@
-#include <string.h>
 #include <LiquidCrystal.h>
 #define BUZZER_PIN 2 // Buzzer pin
 #define KEY_PIN 4 // Straight key pin
@@ -122,9 +121,8 @@ void buttonEvent(uint8_t type_of_event) {
 }
 
 void translate() {
-  char *token = strtok(buf, DELIM); // Split word
-  // Translated the word
-  char translatedWord = converter(token);
+  // Translate word
+  char translatedWord = converter(buf);
 
   if(currentColNum == 16) { // if we reached the end of current line
     if(currentRowNum == 1) { // and If we already are on second line
