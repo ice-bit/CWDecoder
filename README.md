@@ -97,6 +97,15 @@ In this way it's possible to use a tiny char buffer and save a lot of precious m
     pos = -1; // Set index at the beginning
 ```
 
+### Character support
+By default CWDecoder support international alphabet(ie English alphabet) + 0-9 numbers. If you need special characters
+(such as comma, period, blockquote, etc.) you can add them by adding new entry on `converter()` function:
+```c
+    ...
+     else if(!strcmp(ch, "<morse_code>")) { return '<ascii_letter>'; }
+    ...
+```
+
 ## License
 This project is been released under 
 [GPLv3](https://choosealicense.com/licenses/gpl-3.0/) license.
