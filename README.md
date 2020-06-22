@@ -3,7 +3,9 @@
 CWDecoder is a realtime _morsecode-to-ascii_ translator
 for ATMega µC written in C.
 
-![example](.example.gif)
+<div align="center">
+    <img src=".example.gif">
+</div>
 
 
 ## Building
@@ -95,7 +97,6 @@ In this way it's possible to use a tiny char buffer and save a lot of precious m
     pos = -1; // Set index at the beginning
 ```
 
-
-
 ## License
-[GPLv3](https://choosealicense.com/licenses/gpl-3.0/)
+This project is been released under 
+[GPLv3](https://choosealicense.com/licenses/gpl-3.0/) license.
